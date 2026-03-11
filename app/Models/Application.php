@@ -21,6 +21,6 @@ class Application extends Model
     // Ogni pratica appartiene ad un Customer
     public function customer(): BelongsTo
     {
-        return this->belongsTo(Customer::Class);
+        return $this->belongsTo(Customer::class);
     }
 }

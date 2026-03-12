@@ -1,22 +1,21 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\StoreCustomerRequest;
-use App\Http\Requests\Api\UpdateCustomerRequest;
+use App\Http\Requests\StoreCustomerRequest;
+use App\Http\Requests\UpdateCustomerRequest;
 use App\Models\Customer;
 use App\Models\User;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Inertia\Inertia;
 
 class CustomerController extends Controller
 {
-    // Restituisce la lista dei clienti filtrata per ruolo
-    public function index(Request $request): JsonResponse
+    // Renderizza la lista clienti filtrata per ruolo
+    public function index(Request $request)
     {
         $this->authorize('viewAny', Customer::class);
 
@@ -30,17 +29,27 @@ class CustomerController extends Controller
                 ->get();
         }
 
-        return response()->json($customers);
+        return Inertia::render('Customers/Index', [
+            'customers' => $customers,
+        ]);
     }
 
-    // Crea un nuovo cliente e il relativo utente (solo admin)
-    public function store(StoreCustomerRequest $request): JsonResponse
+    // Renderizza il form di creazione cliente (solo admin)
+    public function create()
+    {
+        $this->authorize('create', Customer::class);
+
+        return Inertia::render('Customers/Create');
+    }
+
+    // Salva un nuovo cliente e il relativo utente (solo admin)
+    public function store(StoreCustomerRequest $request)
     {
         $this->authorize('create', Customer::class);
 
         $validated = $request->validated();
 
-        return DB::transaction(function () use ($validated) {
+        DB::transaction(function () use ($validated) {
             // 1. Creo l'account utente associato al cliente
             $user = User::create([
                 'name'     => $validated['company_name'],
@@ -50,40 +59,51 @@ class CustomerController extends Controller
             ]);
 
             // 2. Creo l'anagrafica cliente collegata all'utente
-            $customer = Customer::create([
+            Customer::create([
                 'user_id'      => $user->id,
                 'company_name' => $validated['company_name'],
                 'vat_number'   => $validated['vat_number'],
                 'address'      => $validated['address'] ?? null,
                 'phone'        => $validated['phone'] ?? null,
             ]);
-
-            // 3. Restituisco il cliente con i dati utente in eager loading
-            return response()->json($customer->load('user'), 201);
         });
+
+        return redirect()->route('customers.index');
+    }
+
+    // Renderizza il form di modifica cliente (solo admin)
+    public function edit(Customer $customer)
+    {
+        $this->authorize('update', $customer);
+
+        return Inertia::render('Customers/Edit', [
+            'customer' => $customer,
+        ]);
     }
 
     // Aggiorna i dati di un cliente esistente (solo admin)
-    public function update(UpdateCustomerRequest $request, Customer $customer): JsonResponse
+    public function update(UpdateCustomerRequest $request, Customer $customer)
     {
         $this->authorize('update', $customer);
 
         $customer->update($request->validated());
 
-        return response()->json($customer->load('user'));
+        return redirect()->route('customers.index');
     }
 
-    // Elimina un cliente (solo admin, bloccato se ha pratiche attive)
-    public function destroy(Customer $customer): JsonResponse
+    // Elimina un cliente (solo admin, bloccato se ha pratiche associate)
+    public function destroy(Customer $customer)
     {
         // Blocco l'eliminazione se esistono pratiche associate
         if ($customer->applications()->exists()) {
-            return response()->json(['error' => 'Impossibile eliminare un cliente con pratiche attive.'], 422);
+            return redirect()->back()->withErrors([
+                'delete' => 'Impossibile eliminare un cliente con pratiche attive.',
+            ]);
         }
 
         $this->authorize('delete', $customer);
         $customer->delete();
 
-        return response()->json(['message' => 'Cliente eliminato.']);
+        return redirect()->route('customers.index');
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Api;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -15,7 +15,6 @@ class UpdateCustomerRequest extends FormRequest
             'address'      => ['sometimes', 'required', 'string', 'max:255'],
             'vat_number'   => ['sometimes', 'required', 'string', 'max:11', 'unique:customers,vat_number,' . $this->route('customer')->id],
             'phone'        => ['sometimes', 'required', 'string', 'max:20'],
-            'user_id'      => ['sometimes', 'required', 'integer', 'exists:users,id'],
         ];
     }
 }

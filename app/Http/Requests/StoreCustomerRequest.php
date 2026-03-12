@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Api;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -14,7 +14,7 @@ class StoreCustomerRequest extends FormRequest
             'company_name' => ['required', 'string', 'max:255'],
             'address'      => ['required', 'string', 'max:255'],
             'vat_number'   => ['required', 'string', 'size:11', 'unique:customers,vat_number'],
-            'phone'        => ['required','string', 'max:20'],
+            'phone'        => ['required', 'string', 'max:20'],
             'email'        => ['required', 'email', 'max:255', 'unique:users,email'],
         ];
     }

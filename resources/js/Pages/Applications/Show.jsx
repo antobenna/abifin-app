@@ -17,7 +17,7 @@ export default function Show({ application }) {
             <Head title="Dettaglio Pratica" />
 
             <div className="py-6 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto">
-                <div className="bg-white rounded-lg border border-gray-100 shadow-sm p-6 space-y-6">
+                <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 space-y-6">
                     <div className="flex items-center justify-between">
                         <h3 className="text-lg font-bold text-primary">#{application.id}</h3>
                         <Chip color={statusColor[application.status] ?? 'default'} size="sm" variant="flat">

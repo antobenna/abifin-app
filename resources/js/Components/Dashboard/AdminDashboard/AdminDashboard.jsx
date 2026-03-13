@@ -63,7 +63,7 @@ export default function AdminDashboard({ stats, latest_customers, latest_applica
             value: stats.in_lavorazione,
             icon: IconSync,
             iconClass: 'bg-warning/20 text-warning',
-            chipLabel: 'In Corso',
+            chipLabel: 'In Lavorazione',
             chipColor: 'warning'
         },
         {
@@ -71,7 +71,7 @@ export default function AdminDashboard({ stats, latest_customers, latest_applica
             value: stats.chiusa,
             icon: IconCheck,
             iconClass: 'bg-success/20 text-success',
-            chipLabel: 'Completate',
+            chipLabel: 'Chiuse',
             chipColor: 'success'
         },
     ];

@@ -29,6 +29,7 @@ export default function GenericTable({
                     )}
                 </div>
             )}
+            <div className="overflow-x-auto">
             <Table removeWrapper aria-label={title ?? 'Tabella'}>
                 <TableHeader>
                     {columns.map((col) => (
@@ -37,8 +38,9 @@ export default function GenericTable({
                 </TableHeader>
                 <TableBody emptyContent={emptyContent}>{children}</TableBody>
             </Table>
+            </div>
             {pagination && (
-                <div className="flex items-center justify-between px-6 py-4 border-t border-divider">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-4 sm:px-6 py-4 border-t border-divider">
                     <span className="text-xs text-default-500 font-medium">
                         {pagination.from != null
                             ? `Mostrando ${pagination.from} a ${pagination.to} di ${pagination.total} elementi`
@@ -69,7 +71,7 @@ export default function GenericTable({
                                         key={i}
                                         href={link.url}
                                         preserveScroll
-                                        className={`size-9 flex items-center justify-center rounded-lg text-xs font-bold transition-colors ${
+                                        className={`size-9 hidden sm:flex items-center justify-center rounded-lg text-xs font-bold transition-colors ${
                                             link.active
                                                 ? 'bg-primary text-white'
                                                 : 'text-default-600 hover:bg-default-100'
@@ -78,7 +80,7 @@ export default function GenericTable({
                                         {link.label}
                                     </Link>
                                 ) : (
-                                    <span key={i} className="size-9 flex items-center justify-center text-xs text-default-400">
+                                    <span key={i} className="size-9 hidden sm:flex items-center justify-center text-xs text-default-400">
                                         {link.label}
                                     </span>
                                 )

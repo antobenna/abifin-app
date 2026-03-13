@@ -52,7 +52,7 @@ export default function Index({ customers }) {
                     </div>
 
                     {errors.delete && (
-                        <div className="mb-4 rounded bg-red-100 p-3 text-sm text-red-700">
+                        <div className="mb-4 rounded-xl bg-red-100 p-4 text-sm text-red-700">
                             {errors.delete}
                         </div>
                     )}

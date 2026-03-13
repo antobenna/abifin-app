@@ -7,7 +7,7 @@ export default function CustomSelect({ label, value, onValueChange, isInvalid, e
             <select
                 value={value}
                 onChange={(e) => onValueChange(e.target.value)}
-                className={`w-full px-4 py-3 rounded-md border text-gray-900 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 outline-none transition-all bg-white
+                className={`w-full px-4 py-3 rounded-xl border text-gray-900 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 outline-none transition-all bg-white
                     ${isInvalid ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20' : 'border-gray-200'}`}
             >
                 {options.map(({ key, label }) => (

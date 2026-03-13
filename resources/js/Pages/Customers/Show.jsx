@@ -15,7 +15,7 @@ export default function Show({ customer }) {
             <Head title="Dettaglio Cliente" />
 
             <div className="py-6 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto">
-                <div className="bg-white rounded-lg border border-gray-100 shadow-sm p-6 space-y-6">
+                <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 space-y-6">
                     <h3 className="text-lg font-bold text-default-800">{customer.company_name}</h3>
 
                     <dl className="grid grid-cols-1 gap-4 sm:grid-cols-2">

@@ -9,7 +9,7 @@ export default function CustomTextarea({ label, value, onValueChange, isInvalid,
                 onChange={(e) => onValueChange(e.target.value)}
                 placeholder={placeholder}
                 rows={rows}
-                className={`w-full px-4 py-3 rounded-md border text-gray-900 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 outline-none transition-all resize-none
+                className={`w-full px-4 py-3 rounded-xl border text-gray-900 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 outline-none transition-all resize-none
                     ${isInvalid ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20' : 'border-gray-200'}`}
             />
             {isInvalid && errorMessage && (

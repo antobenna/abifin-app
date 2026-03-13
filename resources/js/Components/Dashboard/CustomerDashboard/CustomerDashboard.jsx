@@ -44,7 +44,7 @@ export default function CustomerDashboard({ stats, applications }) {
             value: stats.in_lavorazione,
             icon: IconSync,
             iconClass: 'bg-warning/20 text-warning',
-            chipLabel: 'In Corso',
+            chipLabel: 'In Lavorazione',
             chipColor: 'warning',
         },
         {
@@ -52,7 +52,7 @@ export default function CustomerDashboard({ stats, applications }) {
             value: stats.chiusa,
             icon: IconCheck,
             iconClass: 'bg-success/20 text-success',
-            chipLabel: 'Completate',
+            chipLabel: 'Chiuse',
             chipColor: 'success',
         },
     ];

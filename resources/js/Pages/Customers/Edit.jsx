@@ -8,7 +8,7 @@ export default function Edit({ customer }) {
         vat_number: customer.vat_number,
         address: customer.address ?? '',
         phone: customer.phone ?? '',
-        email: customer.email ?? '',
+        email: customer.user?.email ?? '',
     });
 
     function submit(e) {

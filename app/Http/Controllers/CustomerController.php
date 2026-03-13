@@ -21,7 +21,7 @@ class CustomerController extends Controller
 
         if ($request->user()->isAdmin()) {
             // Tutti i clienti paginati per l'admin
-            $customers = Customer::with('user')->orderByDesc('created_at')->orderByDesc('id')->paginate(25);
+            $customers = Customer::with('user')->orderByDesc('created_at')->orderByDesc('id')->paginate(10);
         } else {
             // Solo il record cliente dell'utente autenticato
             $customers = Customer::with('user')

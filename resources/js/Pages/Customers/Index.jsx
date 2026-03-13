@@ -1,19 +1,13 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import CustomersManagementTable from '@/Components/ManagementTables/CustomersManagementTable';
 import { Head, Link, router, usePage } from '@inertiajs/react';
 import {
     Button,
-    Chip,
     Modal,
     ModalBody,
     ModalContent,
     ModalFooter,
     ModalHeader,
-    Table,
-    TableBody,
-    TableCell,
-    TableColumn,
-    TableHeader,
-    TableRow,
     useDisclosure,
 } from '@heroui/react';
 import { useState } from 'react';
@@ -24,8 +18,6 @@ export default function Index({ customers }) {
 
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [toDelete, setToDelete] = useState(null);
-
-    const rows = customers.data ?? customers;
 
     function confirmDelete(customer) {
         setToDelete(customer);
@@ -41,74 +33,45 @@ export default function Index({ customers }) {
     return (
         <AuthenticatedLayout
             header={
-                <div className="flex items-center justify-between">
-                    <h2 className="text-xl font-semibold leading-tight text-gray-800">Clienti</h2>
-                    {isAdmin && (
-                        <Button as={Link} href={route('customers.create')} color="primary" size="sm">
-                            Nuovo Cliente
-                        </Button>
-                    )}
-                </div>
+                <h2 className="text-xl font-semibold leading-tight text-gray-800">Clienti</h2>
             }
         >
             <Head title="Clienti" />
 
-            <div className="py-12">
+            <div className="py-8">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
+                    {/* Page header */}
+                    <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
+                        <div>
+                            <h1 className="text-3xl font-black text-foreground leading-tight">Gestione Clienti</h1>
+                            <p className="text-default-500 text-sm mt-1 max-w-xl">
+                                Monitora, modifica e gestisci il database dei tuoi clienti registrati.
+                            </p>
+                        </div>
+                        {isAdmin && (
+                            <Button as={Link} href={route('customers.create')} color="primary">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                                </svg>
+                                Nuovo Cliente
+                            </Button>
+                        )}
+                    </div>
+
                     {errors.delete && (
                         <div className="mb-4 rounded bg-red-100 p-3 text-sm text-red-700">
                             {errors.delete}
                         </div>
                     )}
 
-                    <Table aria-label="Lista clienti">
-                        <TableHeader>
-                            <TableColumn>Ragione Sociale</TableColumn>
-                            <TableColumn>P.IVA</TableColumn>
-                            <TableColumn>Telefono</TableColumn>
-                            <TableColumn>Indirizzo</TableColumn>
-                            <TableColumn>Azioni</TableColumn>
-                        </TableHeader>
-                        <TableBody emptyContent="Nessun cliente.">
-                            {rows.map((c) => (
-                                <TableRow key={c.id}>
-                                    <TableCell>{c.company_name}</TableCell>
-                                    <TableCell>{c.vat_number}</TableCell>
-                                    <TableCell>{c.phone}</TableCell>
-                                    <TableCell>{c.address}</TableCell>
-                                    <TableCell>
-                                        <div className="flex gap-2">
-                                            {isAdmin && (
-                                                <>
-                                                    <Button
-                                                        as={Link}
-                                                        href={route('customers.edit', c.id)}
-                                                        size="sm"
-                                                        variant="flat"
-                                                        color="primary"
-                                                    >
-                                                        Modifica
-                                                    </Button>
-                                                    <Button
-                                                        size="sm"
-                                                        variant="flat"
-                                                        color="danger"
-                                                        onPress={() => confirmDelete(c)}
-                                                    >
-                                                        Elimina
-                                                    </Button>
-                                                </>
-                                            )}
-                                        </div>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
+                    <CustomersManagementTable
+                        customers={customers}
+                        isAdmin={isAdmin}
+                        onDelete={confirmDelete}
+                    />
                 </div>
             </div>
 
-            {/* Modal conferma eliminazione */}
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalContent>
                     <ModalHeader>Conferma eliminazione</ModalHeader>

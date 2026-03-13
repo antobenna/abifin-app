@@ -31,9 +31,9 @@ class DatabaseSeeder extends Seeder
         // 2. Creo uno User con ruolo cliente
         $testCustomerUser = User::factory()->create([
             'name' => $company_name,
-            'email' => 'cliente@test.it',
+            'email' => 'cliente@abifin.it',
             'role' => 'cliente',
-            'password' => Hash::make('cliente123'),
+            'password' => Hash::make('cliente'),
         ]);
 
         // 3. Creo l'anagrafica cliente collegata all'utente, con 3 Pratiche associate

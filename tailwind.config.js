@@ -1,6 +1,5 @@
 import defaultTheme from 'tailwindcss/defaultTheme';
 import forms from '@tailwindcss/forms';
-
 import { heroui } from "@heroui/react";
 
 /** @type {import('tailwindcss').Config} */
@@ -10,7 +9,6 @@ export default {
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
         './resources/js/**/*.jsx',
-        
         "./node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}",
     ],
 
@@ -19,17 +17,23 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
-            colors: {
-                primary: '#0052CC',
-            },
+            
         },
     },
 
-
     darkMode: "class",
 
-
-    plugins: [forms, heroui({
+    plugins: [
+        forms, 
+        heroui({
+            
+            layout: {
+                radius: {
+                    small: "6px",
+                    medium: "10px",
+                    large: "14px", 
+                },
+            },
             themes: {
                 light: {
                     colors: {
@@ -41,20 +45,18 @@ export default {
                             DEFAULT: "#9CA3AF", 
                             foreground: "#FFFFFF",
                         },
-                        // Stati delle pratiche 
                         info: {
-                            DEFAULT: "#7DD3FC", // Azzurrino -> Aperta
+                            DEFAULT: "#7DD3FC",
                             foreground: "#0369A1",
                         },
                         warning: {
-                            DEFAULT: "#F97316", // Arancione -> In Lavorazione
+                            DEFAULT: "#F97316",
                             foreground: "#FFFFFF",
                         },
                         success: {
-                            DEFAULT: "#22C55E", // Verde -> Chiusa
+                            DEFAULT: "#22C55E",
                             foreground: "#FFFFFF",
                         },
-                        // Gestione Errori e Azioni Distruttive 
                         danger: {
                             DEFAULT: "#EF4444", 
                             foreground: "#FFFFFF",
@@ -63,5 +65,6 @@ export default {
                     },
                 },
             },
-        }),],
+        }),
+    ],
 };

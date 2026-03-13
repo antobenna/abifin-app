@@ -14,6 +14,10 @@ class ApplicationController extends Controller
     // Renderizza la lista pratiche filtrata per ruolo
     public function index(Request $request)
     {
+        if (! $request->user()->isAdmin()) {
+            return redirect()->route('dashboard');
+        }
+
         $this->authorize('viewAny', Application::class);
 
         $query = Application::with('customer');

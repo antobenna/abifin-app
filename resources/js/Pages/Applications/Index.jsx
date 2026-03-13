@@ -1,36 +1,23 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import ApplicationsManagementTable from '@/Components/ManagementTables/ApplicationsManagementTable';
 import { Head, Link, router, usePage } from '@inertiajs/react';
 import {
     Button,
-    Chip,
     Modal,
     ModalBody,
     ModalContent,
     ModalFooter,
     ModalHeader,
-    Select,
-    SelectItem,
-    Table,
-    TableBody,
-    TableCell,
-    TableColumn,
-    TableHeader,
-    TableRow,
     useDisclosure,
 } from '@heroui/react';
 import { useState } from 'react';
 
-const statusColor = { Aperta: 'success', 'In Lavorazione': 'warning', Chiusa: 'default' };
-const STATUSES = ['Aperta', 'In Lavorazione', 'Chiusa'];
-
-export default function Index({ applications, customers }) {
+export default function Index({ applications }) {
     const { auth } = usePage().props;
     const isAdmin = auth.user.role === 'admin';
 
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [toDelete, setToDelete] = useState(null);
-
-    const rows = applications.data ?? applications;
 
     function confirmDelete(application) {
         setToDelete(application);
@@ -46,70 +33,39 @@ export default function Index({ applications, customers }) {
     return (
         <AuthenticatedLayout
             header={
-                <div className="flex items-center justify-between">
-                    <h2 className="text-xl font-semibold leading-tight text-gray-800">Pratiche</h2>
-                    {isAdmin && (
-                        <Button as={Link} href={route('applications.create')} color="primary" size="sm">
-                            Nuova Pratica
-                        </Button>
-                    )}
-                </div>
+                <h2 className="text-xl font-semibold leading-tight text-gray-800">Pratiche</h2>
             }
         >
             <Head title="Pratiche" />
 
-            <div className="py-12">
+            <div className="py-8">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    <Table aria-label="Lista pratiche">
-                        <TableHeader>
-                            <TableColumn>Titolo</TableColumn>
-                            <TableColumn>Cliente</TableColumn>
-                            <TableColumn>Stato</TableColumn>
-                            <TableColumn>Data</TableColumn>
-                            <TableColumn>Azioni</TableColumn>
-                        </TableHeader>
-                        <TableBody emptyContent="Nessuna pratica.">
-                            {rows.map((a) => (
-                                <TableRow key={a.id}>
-                                    <TableCell>{a.title}</TableCell>
-                                    <TableCell>{a.customer?.company_name ?? '—'}</TableCell>
-                                    <TableCell>
-                                        <Chip color={statusColor[a.status] ?? 'default'} size="sm" variant="flat">
-                                            {a.status}
-                                        </Chip>
-                                    </TableCell>
-                                    <TableCell>{new Date(a.created_at).toLocaleDateString('it-IT')}</TableCell>
-                                    <TableCell>
-                                        {isAdmin && (
-                                            <div className="flex gap-2">
-                                                <Button
-                                                    as={Link}
-                                                    href={route('applications.edit', a.id)}
-                                                    size="sm"
-                                                    variant="flat"
-                                                    color="primary"
-                                                >
-                                                    Modifica
-                                                </Button>
-                                                <Button
-                                                    size="sm"
-                                                    variant="flat"
-                                                    color="danger"
-                                                    onPress={() => confirmDelete(a)}
-                                                >
-                                                    Elimina
-                                                </Button>
-                                            </div>
-                                        )}
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
+                    {/* Page header */}
+                    <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
+                        <div>
+                            <h1 className="text-3xl font-black text-foreground leading-tight">Gestione Pratiche</h1>
+                            <p className="text-default-500 text-sm mt-1 max-w-xl">
+                                Monitora, modifica e gestisci tutte le pratiche aperte e in lavorazione.
+                            </p>
+                        </div>
+                        {isAdmin && (
+                            <Button as={Link} href={route('applications.create')} color="primary">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                                </svg>
+                                Nuova Pratica
+                            </Button>
+                        )}
+                    </div>
+
+                    <ApplicationsManagementTable
+                        applications={applications}
+                        isAdmin={isAdmin}
+                        onDelete={confirmDelete}
+                    />
                 </div>
             </div>
 
-            {/* Modal conferma eliminazione */}
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalContent>
                     <ModalHeader>Conferma eliminazione</ModalHeader>

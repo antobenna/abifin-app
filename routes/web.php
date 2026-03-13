@@ -22,8 +22,8 @@ Route::get('/dashboard', DashboardController::class)
     ->name('dashboard');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::resource('customers', CustomerController::class)->except(['show']);
-    Route::resource('applications', ApplicationController::class)->except(['show']);
+    Route::resource('customers', CustomerController::class);
+    Route::resource('applications', ApplicationController::class);
 });
 
 Route::middleware('auth')->group(function () {

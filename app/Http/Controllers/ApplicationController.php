@@ -44,6 +44,16 @@ class ApplicationController extends Controller
         ]);
     }
 
+    // Renderizza la pagina di dettaglio pratica (sola lettura)
+    public function show(Application $application): \Inertia\Response
+    {
+        $this->authorize('view', $application);
+        $application->load('customer');
+        return Inertia::render('Applications/Show', [
+            'application' => $application,
+        ]);
+    }
+
     // Renderizza il form di creazione pratica (solo admin)
     public function create(Request $request)
     {

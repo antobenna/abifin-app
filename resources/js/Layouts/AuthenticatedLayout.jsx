@@ -60,7 +60,6 @@ function SidebarContent({ user, onLinkClick }) {
           ]
         : [
               { href: route('dashboard'), label: 'Dashboard', icon: <IconDashboard />, routePattern: 'dashboard' },
-              { href: route('applications.index'), label: 'Pratiche', icon: <IconFiles />, routePattern: 'applications.*' },
           ];
 
     // Initials avatar color based on name

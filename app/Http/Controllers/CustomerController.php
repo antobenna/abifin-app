@@ -34,6 +34,16 @@ class CustomerController extends Controller
         ]);
     }
 
+    // Renderizza la pagina di dettaglio cliente (sola lettura)
+    public function show(Customer $customer): \Inertia\Response
+    {
+        $this->authorize('view', $customer);
+        $customer->load('user');
+        return Inertia::render('Customers/Show', [
+            'customer' => $customer,
+        ]);
+    }
+
     // Renderizza il form di creazione cliente (solo admin)
     public function create()
     {
@@ -75,6 +85,7 @@ class CustomerController extends Controller
     public function edit(Customer $customer)
     {
         $this->authorize('update', $customer);
+        $customer->load('user');
 
         return Inertia::render('Customers/Edit', [
             'customer' => $customer,
@@ -86,7 +97,14 @@ class CustomerController extends Controller
     {
         $this->authorize('update', $customer);
 
-        $customer->update($request->validated());
+        $validated = $request->validated();
+        $email = $validated['email'] ?? null;
+
+        $customer->update(array_diff_key($validated, ['email' => '']));
+
+        if ($email) {
+            $customer->user->update(['email' => $email]);
+        }
 
         return redirect()->route('customers.index');
     }

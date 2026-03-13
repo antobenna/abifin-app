@@ -21,10 +21,10 @@ class DashboardController extends Controller
                     'in_lavorazione'  => Application::where('status', 'In Lavorazione')->count(),
                     'chiusa'          => Application::where('status', 'Chiusa')->count(),
                 ],
-                'latest_customers'    => Customer::latest()->take(5)->get(['id', 'company_name', 'created_at']),
+                'latest_customers'    => Customer::orderByDesc('created_at')->orderByDesc('id')->take(5)->get(['id', 'company_name', 'created_at']),
                 'latest_applications' => Application::with('customer:id,company_name')
                     ->where('status', 'Aperta')
-                    ->latest()->take(5)
+                    ->orderByDesc('created_at')->orderByDesc('id')->take(5)
                     ->get(['id', 'title', 'customer_id', 'created_at']),
             ]);
         }
@@ -38,7 +38,7 @@ class DashboardController extends Controller
                 'in_lavorazione' => $customer->applications()->where('status', 'In Lavorazione')->count(),
                 'chiusa'         => $customer->applications()->where('status', 'Chiusa')->count(),
             ],
-            'applications' => $customer->applications()->latest()->get(['id', 'title', 'status', 'created_at']),
+            'applications' => $customer->applications()->orderByDesc('created_at')->orderByDesc('id')->get(['id', 'title', 'status', 'created_at']),
         ]);
     }
 }

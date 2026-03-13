@@ -1,6 +1,21 @@
 import { Card, Table, TableBody, TableColumn, TableHeader } from '@heroui/react';
 import { Link } from '@inertiajs/react';
 
+/**
+ * Wrapper tabella riutilizzabile con intestazione opzionale e paginazione Laravel.
+ *
+ * Gestisce automaticamente i link prev/next/page dalla risposta paginata di Laravel.
+ * I contenuti delle righe vanno passati come `children` (TableRow).
+ *
+ * @param {Object}   props
+ * @param {string}   [props.title]           - Titolo mostrato nell'intestazione della card.
+ * @param {string}   [props.seeAllHref]      - URL per il link "Vedi tutti".
+ * @param {string}   [props.seeAllLabel]     - Etichetta del link "Vedi tutti" (default: 'Vedi tutti').
+ * @param {Array}    props.columns           - Definizione colonne: array di { key, label }.
+ * @param {string}   [props.emptyContent]    - Testo mostrato se non ci sono righe.
+ * @param {Object}   [props.pagination]      - Oggetto paginazione Laravel (links, from, to, total, last_page).
+ * @param {React.ReactNode} props.children   - Righe della tabella (TableRow).
+ */
 export default function GenericTable({
     title,
     seeAllHref,

@@ -29,6 +29,16 @@ function IconCheck() {
     );
 }
 
+/**
+ * Dashboard per i clienti autenticati.
+ *
+ * Mostra 3 stat card (pratiche aperte, in lavorazione, chiuse) relative
+ * alle sole pratiche del cliente e la tabella completa delle sue pratiche.
+ *
+ * @param {Object} props
+ * @param {Object} props.stats        - Contatori: open, in_lavorazione, chiusa.
+ * @param {Array}  props.applications - Elenco delle pratiche del cliente.
+ */
 export default function CustomerDashboard({ stats, applications }) {
     const dashboardStats = [
         {

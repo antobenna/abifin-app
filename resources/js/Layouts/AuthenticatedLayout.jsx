@@ -131,6 +131,18 @@ function SidebarContent({ user, onLinkClick }) {
     );
 }
 
+/**
+ * Layout principale per le pagine autenticate.
+ *
+ * Include una sidebar fissa su desktop e un drawer mobile con overlay.
+ * La navigazione nella sidebar è basata sul ruolo: gli admin vedono
+ * Dashboard, Clienti e Pratiche; i clienti vedono solo la Dashboard.
+ * Il footer della sidebar mostra avatar a iniziali, nome, ruolo e link di logout.
+ *
+ * @param {Object}          props
+ * @param {React.ReactNode} [props.header]   - Contenuto dell'intestazione sticky (es. titolo pagina).
+ * @param {React.ReactNode} props.children   - Contenuto principale della pagina.
+ */
 export default function AuthenticatedLayout({ header, children }) {
     const user = usePage().props.auth.user;
     const [sidebarOpen, setSidebarOpen] = useState(false);

@@ -1,6 +1,19 @@
 import { Link } from '@inertiajs/react';
 import { Button } from '@heroui/react';
 
+/**
+ * Wrapper form con struttura grafica unificata e pulsanti Annulla/Salva.
+ *
+ * I campi del form vanno passati come `children`. Il pulsante "Salva" mostra
+ * uno spinner quando `processing` è true.
+ *
+ * @param {Object}          props
+ * @param {string}          [props.subtitle]   - Testo descrittivo opzionale mostrato sopra i campi.
+ * @param {Function}        props.onSubmit     - Handler di submit del form.
+ * @param {string}          props.cancelHref   - URL per il pulsante "Annulla".
+ * @param {boolean}         props.processing   - Se true disabilita il submit e mostra lo spinner.
+ * @param {React.ReactNode} props.children     - Campi del form.
+ */
 export default function GenericForm({ subtitle, onSubmit, cancelHref, processing, children }) {
     return (
         <div className="py-6 sm:py-12">

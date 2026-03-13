@@ -9,6 +9,15 @@ const columns = [
 
 const statusColor = { Aperta: 'success', 'In Lavorazione': 'warning', Chiusa: 'default' };
 
+/**
+ * Tabella delle ultime 5 pratiche nella dashboard admin.
+ *
+ * Visualizza id, titolo, cliente e stato di ciascuna pratica.
+ * Il colore del chip di stato segue la mappa: Aperta → success, In Lavorazione → warning, Chiusa → default.
+ *
+ * @param {Object} props
+ * @param {Array}  [props.applications=[]] - Elenco delle pratiche da visualizzare.
+ */
 export default function DashboardLastApplicationsTable({ applications = [] }) {
     return (
         <GenericTable

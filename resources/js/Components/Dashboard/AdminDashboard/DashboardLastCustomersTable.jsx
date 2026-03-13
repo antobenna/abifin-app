@@ -15,6 +15,15 @@ const avatarColors = [
     'bg-red-100 text-red-600',
 ];
 
+/**
+ * Tabella degli ultimi 5 clienti nella dashboard admin.
+ *
+ * Visualizza ragione sociale con avatar a iniziali colorato, email e data di registrazione.
+ * Il colore dell'avatar ruota su 5 combinazioni predefinite.
+ *
+ * @param {Object} props
+ * @param {Array}  [props.customers=[]] - Elenco dei clienti da visualizzare.
+ */
 export default function DashboardLastCustomersTable({ customers = [] }) {
     return (
         <GenericTable

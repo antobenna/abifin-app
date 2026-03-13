@@ -41,6 +41,17 @@ function IconCheck() {
     );
 }
 
+/**
+ * Dashboard per gli amministratori.
+ *
+ * Mostra 4 stat card (totale clienti, pratiche aperte, in lavorazione, chiuse)
+ * e 2 tabelle con gli ultimi 5 clienti e le ultime 5 pratiche.
+ *
+ * @param {Object} props
+ * @param {Object} props.stats                     - Oggetto con i contatori: total_customers, open, in_lavorazione, chiusa.
+ * @param {Array}  props.latest_customers          - Ultimi 5 clienti (id, company_name, created_at, user).
+ * @param {Array}  props.latest_applications       - Ultime 5 pratiche (id, title, status, customer).
+ */
 export default function AdminDashboard({ stats, latest_customers, latest_applications }) {
 
     const dashboardStats = [

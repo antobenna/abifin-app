@@ -1,5 +1,19 @@
 import { Button, Modal, ModalContent, useDisclosure } from '@heroui/react';
 
+/**
+ * Modale di conferma eliminazione.
+ *
+ * Supporta sia clienti che pratiche: la prop `isApplication` determina il genere
+ * della frase mostrata all'utente ("il cliente" / "la pratica").
+ * L'operazione viene confermata solo al clic di "Elimina Definitivamente".
+ *
+ * @param {Object}   props
+ * @param {boolean}  props.isOpen         - Controlla la visibilità della modale.
+ * @param {Function} props.onClose        - Callback invocata alla chiusura (Annulla o overlay).
+ * @param {Function} props.onConfirm      - Callback invocata alla conferma eliminazione.
+ * @param {boolean}  props.isApplication  - Se true usa il genere femminile ("la pratica").
+ * @param {string}   props.name           - Nome dell'elemento da eliminare (mostrato in grassetto).
+ */
 export default function DeleteModal({ isOpen, onClose, onConfirm, isApplication, name }) {
     const noun = isApplication ? 'la pratica' : 'il cliente';
 

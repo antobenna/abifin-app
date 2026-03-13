@@ -4,6 +4,11 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * Form request per la validazione dell'aggiornamento parziale di un cliente esistente.
+ *
+ * Tutti i campi sono opzionali (sometimes); vengono validati solo se presenti nella richiesta.
+ */
 class UpdateCustomerRequest extends FormRequest
 {
     public function authorize(): bool { return true; }

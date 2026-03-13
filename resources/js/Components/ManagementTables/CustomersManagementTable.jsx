@@ -19,6 +19,16 @@ const avatarColors = [
     'bg-red-100 text-red-600',
 ];
 
+/**
+ * Tabella di gestione clienti con paginazione e azioni basate sul ruolo.
+ *
+ * Accetta sia un oggetto paginato Laravel (con `.data`) che un array semplice.
+ * Le azioni Modifica ed Elimina sono visibili solo agli admin.
+ *
+ * @param {Object|Array} props.customers - Risposta paginata Laravel o array di clienti.
+ * @param {boolean}      props.isAdmin   - Se true mostra i pulsanti Modifica ed Elimina.
+ * @param {Function}     props.onDelete  - Callback invocata con il cliente selezionato per l'eliminazione.
+ */
 export default function CustomersManagementTable({ customers, isAdmin, onDelete }) {
     const rows = customers.data ?? customers;
     const pagination = customers.data ? customers : undefined;

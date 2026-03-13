@@ -1,6 +1,21 @@
 import CustomInput from '@/Components/Custom/CustomInput';
 import GenericForm from '@/Components/Custom/GenericForm';
 
+/**
+ * Form riutilizzabile per la creazione e la modifica di un cliente.
+ *
+ * Campi: Ragione Sociale, P.IVA, Indirizzo, Telefono, Email.
+ * Delega la struttura grafica a `GenericForm`.
+ *
+ * @param {Object}   props
+ * @param {Object}   props.data          - Valori correnti del form (company_name, vat_number, address, phone, email).
+ * @param {Function} props.setData       - Setter di Inertia useForm per aggiornare i campi.
+ * @param {Object}   props.errors        - Errori di validazione restituiti dal server.
+ * @param {Function} props.onSubmit      - Handler di submit del form.
+ * @param {string}   props.cancelHref    - URL per il pulsante "Annulla".
+ * @param {boolean}  props.processing    - Stato di caricamento del form (disabilita il submit).
+ * @param {string}   [props.subtitle]    - Testo descrittivo opzionale mostrato sopra i campi.
+ */
 export default function CustomerForm({ data, setData, errors, onSubmit, cancelHref, processing, subtitle }) {
     return (
         <GenericForm onSubmit={onSubmit} cancelHref={cancelHref} processing={processing} subtitle={subtitle}>

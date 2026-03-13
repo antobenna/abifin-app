@@ -4,6 +4,16 @@ import GenericTable from '@/Components/Custom/GenericTable';
 
 const statusColor = { Aperta: 'success', 'In Lavorazione': 'warning', Chiusa: 'default' };
 
+/**
+ * Tabella di gestione pratiche con colonne dinamiche in base al ruolo.
+ *
+ * Se `isAdmin` è true aggiunge la colonna Cliente e mostra i pulsanti Modifica ed Elimina.
+ * Accetta sia un oggetto paginato Laravel (con `.data`) che un array semplice.
+ *
+ * @param {Object|Array} props.applications - Risposta paginata Laravel o array di pratiche.
+ * @param {boolean}      props.isAdmin      - Se true aggiunge colonna Cliente e azioni admin.
+ * @param {Function}     [props.onDelete]   - Callback invocata con la pratica selezionata per l'eliminazione.
+ */
 export default function ApplicationsManagementTable({ applications, isAdmin, onDelete }) {
     const rows = applications.data ?? applications;
     const pagination = applications.data ? applications : undefined;

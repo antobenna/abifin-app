@@ -31,7 +31,7 @@ class ApplicationController extends Controller
             $query->where('customer_id', $customer->id);
         }
 
-        $applications = $query->orderByDesc('created_at')->orderByDesc('id')->paginate(25);
+        $applications = $query->orderByDesc('created_at')->orderByDesc('id')->paginate(10);
 
         // Lista clienti per il filtro (solo admin)
         $customers = $request->user()->isAdmin()

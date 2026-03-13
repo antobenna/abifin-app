@@ -21,11 +21,13 @@ class DashboardController extends Controller
                     'in_lavorazione'  => Application::where('status', 'In Lavorazione')->count(),
                     'chiusa'          => Application::where('status', 'Chiusa')->count(),
                 ],
-                'latest_customers'    => Customer::orderByDesc('created_at')->orderByDesc('id')->take(5)->get(['id', 'company_name', 'created_at']),
+                'latest_customers'    => Customer::with('user:id,email')
+                    ->orderByDesc('created_at')->orderByDesc('id')
+                    ->take(5)
+                    ->get(['id', 'company_name', 'created_at', 'user_id']),
                 'latest_applications' => Application::with('customer:id,company_name')
-                    ->where('status', 'Aperta')
                     ->orderByDesc('created_at')->orderByDesc('id')->take(5)
-                    ->get(['id', 'title', 'customer_id', 'created_at']),
+                    ->get(['id', 'title', 'status', 'customer_id', 'created_at']),
             ]);
         }
 

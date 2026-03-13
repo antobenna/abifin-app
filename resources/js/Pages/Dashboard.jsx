@@ -1,5 +1,5 @@
-import AdminDashboard from '@/Components/Dashboard/AdminDashboard';
-import CustomerDashboard from '@/Components/Dashboard/CustomerDashboard';
+import AdminDashboard from '@/Components/Dashboard/AdminDashboard/AdminDashboard';
+import CustomerDashboard from '@/Components/Dashboard/CustomerDashboard/CustomerDashboard';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import { usePage } from '@inertiajs/react';

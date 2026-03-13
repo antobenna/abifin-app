@@ -18,26 +18,36 @@ export default function StatCard({
     chipColor = "default" 
 }) {
     return (
-        <Card radius='lg' className="border border-gray-200 shadow-sm">
+        <Card 
+            radius="lg" 
+            shadow="sm"
+            className="bg-content1 border-small border-divider"
+        >
             <CardBody className="p-5">
                 <div className="flex justify-between items-start mb-3">
-                    <div className={`p-2 rounded-lg ${iconClass}`}>
-                        <Icon />
+                    <div className={`p-2.5 rounded-xl ${iconClass}`}>
+                        <Icon size={24} />
                     </div>
                     {chipLabel && (
                         <Chip 
                             size="sm" 
                             variant="flat" 
                             color={chipColor}
-                            className="font-semibold"
+                            className="font-semibold capitalize"
                         >
                             {chipLabel}
                         </Chip>
                     )}
                 </div>
                 <div>
-                    <p className="text-sm font-medium text-gray-500">{title}</p>
-                    <p className="text-2xl font-bold mt-1 text-gray-900">{value}</p>
+                    
+                    <p className="text-xs font-semibold uppercase tracking-wider text-default-500">
+                        {title}
+                    </p>
+                   
+                    <p className="text-3xl font-bold mt-1 text-foreground">
+                        {value}
+                    </p>
                 </div>
             </CardBody>
         </Card>

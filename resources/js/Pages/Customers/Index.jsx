@@ -1,15 +1,8 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import CustomersManagementTable from '@/Components/ManagementTables/CustomersManagementTable';
+import DeleteModal from '@/Components/Custom/DeleteModal';
 import { Head, Link, router, usePage } from '@inertiajs/react';
-import {
-    Button,
-    Modal,
-    ModalBody,
-    ModalContent,
-    ModalFooter,
-    ModalHeader,
-    useDisclosure,
-} from '@heroui/react';
+import { Button, useDisclosure } from '@heroui/react';
 import { useState } from 'react';
 
 export default function Index({ customers }) {
@@ -72,18 +65,13 @@ export default function Index({ customers }) {
                 </div>
             </div>
 
-            <Modal isOpen={isOpen} onClose={onClose}>
-                <ModalContent>
-                    <ModalHeader>Conferma eliminazione</ModalHeader>
-                    <ModalBody>
-                        Eliminare il cliente <strong>{toDelete?.company_name}</strong>? L'operazione non è reversibile.
-                    </ModalBody>
-                    <ModalFooter>
-                        <Button variant="flat" onPress={onClose}>Annulla</Button>
-                        <Button color="danger" onPress={handleDelete}>Elimina</Button>
-                    </ModalFooter>
-                </ModalContent>
-            </Modal>
+            <DeleteModal
+                isOpen={isOpen}
+                onClose={onClose}
+                onConfirm={handleDelete}
+                isApplication={false}
+                name={toDelete?.company_name}
+            />
         </AuthenticatedLayout>
     );
 }

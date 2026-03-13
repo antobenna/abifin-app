@@ -18,6 +18,11 @@ export default {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
             
+            borderRadius: {
+                'sm': '8px',
+                'md': '14px',
+                'lg': '20px',
+            }
         },
     },
 
@@ -29,9 +34,9 @@ export default {
             
             layout: {
                 radius: {
-                    small: "6px",
-                    medium: "10px",
-                    large: "14px", 
+                    small:  "8px",
+                    medium: "14px",
+                    large:  "20px",
                 },
             },
             themes: {
